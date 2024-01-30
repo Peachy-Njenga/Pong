@@ -31,7 +31,7 @@ end
 function love.draw()
     push:apply('start')
 
-    love.graphics.clear(0.5, 0, 0, 1) --RGBA : red, green, blue, alpha. alpha is the opacity. these nmbers should all range from 0 to 1. use colour picker and divide numbers by 255
+    love.graphics.clear(0.5, 0, 0, 1) --RGBA : red, green, blue, alpha. alpha is the opacity. these nmbers should all range from 0 to 1. 
     love.graphics.printf("Welkie to Pong!",
                          0,
                          15,
