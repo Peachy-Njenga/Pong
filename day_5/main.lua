@@ -100,7 +100,14 @@ function love.draw()
     love.graphics.setFont(smallFont)
 
     if gameState == 'Start' then
-        love.graphics.printf("Welkie to Pong!",
+        love.graphics.printf("Welkie to Pong, Start state!!",
+        0,
+        15,
+        VIRTUAL_WIDTH,
+        'center')
+
+    else
+        love.graphics.printf("Welkie to Pong, Play State!!",
         0,
         15,
         VIRTUAL_WIDTH,
