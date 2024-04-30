@@ -80,7 +80,7 @@ function love.update(dt)
         if ball:collides(player1) then
             ball.dx = -ball.dx * 1.03
             ball.x = player1.x + 5
-            
+
             if ball.dy < 0 then
                 ball.dy = -math.random(10, 150)
             else
@@ -158,16 +158,28 @@ function love.update(dt)
         player1.dy = 0
     end
 
-    --computer's movement
-    -- if love.keyboard.isDown('up') then
-    --     Computer.dy = -PADDLE_SPEED
-    -- elseif love.keyboard.isDown('down') then
-    --     Computer.dy = PADDLE_SPEED
-    -- else
-    --     Computer.dy = 0
-    -- end
-        Computer.dy = ball.dy
-        Computer.y = ball.y
+    --A delay so that the computer is not unbeatable
+    local delay = 0.1
+    if gameState == 'play' and ball.dx > 0 then
+        if ball.y < Computer.y then
+            Computer.dy = -PADDLE_SPEED
+            -- Introduce a slight delay
+            if math.random() < delay then
+                Computer.dy = 0
+            end
+        elseif ball.y > Computer.y + Computer.height then
+            Computer.dy = PADDLE_SPEED
+            -- Introduce a slight delay
+            if math.random() < delay then
+                Computer.dy = 0
+            end
+        else
+            Computer.dy = 0
+        end
+    else
+        Computer.dy = 0
+    end
+    
 
     if gameState == 'play' then
         ball:update(dt)
@@ -208,7 +220,7 @@ end
 function love.draw()
     push:apply('start')
 
-    love.graphics.clear(0.5, 0, 0, 1)
+    love.graphics.clear(1, 0, 1, 0.6)
 
     love.graphics.setFont(smallFont)
 
@@ -225,8 +237,13 @@ function love.draw()
         --nothing is printed
     elseif gameState == 'done' then
         love.graphics.setFont(largeFont)
-        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins! He is the true Sigma', 0, 120, VIRTUAL_WIDTH,
-            'center')
+        if winningPlayer == 1 then
+            love.graphics.printf('You win, you are the true sigma', 0, 120, VIRTUAL_WIDTH,
+                'center')
+        else
+            love.graphics.printf('Game Over!', 0, 120, VIRTUAL_WIDTH,
+                'center')
+        end
         love.graphics.setFont(smallFont)
         love.graphics.printf("Press 'Enter' to restart", 0, 150, VIRTUAL_WIDTH, 'center')
     end
