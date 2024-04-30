@@ -17,7 +17,7 @@ PADDLE_SPEED = 200
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 --[[
-    this imports the font from the .ttf file in the smae directory. 
+    this imports the font from the .ttf file in the same directory. 
     import the font and assign it to a global variable then set the font 
 ]]
 
@@ -43,6 +43,8 @@ function love.load()
         )
 
         love.window.setTitle("Pong!")
+
+        servingPlayer = 1
         
         _G.player1 = Paddle(5, 10, 2, 15)
         _G.player2 = Paddle(VIRTUAL_WIDTH-5, 10, 2,15)
