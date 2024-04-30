@@ -53,7 +53,7 @@ function love.load()
     servingPlayer = 1
 
     _G.player1 = Paddle(5, 10, 2, 15)
-    _G.player2 = Paddle(VIRTUAL_WIDTH - 5, 10, 2, 15)
+    _G.Computer = Paddle(VIRTUAL_WIDTH - 5, 10, 2, 15)
 
     _G.ball = Ball(VIRTUAL_WIDTH / 2 + 5, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
@@ -61,7 +61,7 @@ function love.load()
 end
 
 _G.player1Score = 0
-_G.player2Score = 0
+_G.ComputerScore = 0
 
 function love.resize(w, h)
     push:resize(w, h)
@@ -90,9 +90,9 @@ function love.update(dt)
             sounds.paddle_hit:play()
         end
 
-        if ball:collides(player2) then
+        if ball:collides(Computer) then
             ball.dx = -ball.dx * 1.03
-            ball.x = player2.x - 4
+            ball.x = Computer.x - 4
 
             if ball.dy < 0 then
                 ball.dy = -math.random(10, 150)
@@ -121,10 +121,10 @@ function love.update(dt)
     --Scoring update
     if ball.x < 0 then
         _G.servingPlayer = 1
-        player2Score = player2Score + 1
+        ComputerScore = ComputerScore + 1
         ball:reset()
 
-        if player2Score == 10 then
+        if ComputerScore == 10 then
             winningPlayer = 2
             gameState = 'done'
         else
@@ -150,29 +150,31 @@ function love.update(dt)
     end
 
     --player 1 movement
-    if love.keyboard.isDown('w') then
+    if love.keyboard.isDown('up') then
         player1.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('s') then
+    elseif love.keyboard.isDown('down') then
         player1.dy = PADDLE_SPEED
     else
         player1.dy = 0
     end
 
-    --player 2 movement
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
-    else
-        player2.dy = 0
-    end
+    --computer's movement
+    -- if love.keyboard.isDown('up') then
+    --     Computer.dy = -PADDLE_SPEED
+    -- elseif love.keyboard.isDown('down') then
+    --     Computer.dy = PADDLE_SPEED
+    -- else
+    --     Computer.dy = 0
+    -- end
+        Computer.dy = ball.dy
+        Computer.y = ball.y
 
     if gameState == 'play' then
         ball:update(dt)
     end
 
     player1:update(dt)
-    player2:update(dt)
+    Computer:update(dt)
 end
 
 function love.keypressed(key)
@@ -191,11 +193,11 @@ function love.keypressed(key)
             --reseting everything
             ball:reset()
             player1Score = 0
-            player2Score = 0
+            ComputerScore = 0
 
             --select serving player
             if winningPlayer == 1 then
-                servingPlayer = 2
+                gameState = 'play'
             else
                 servingPlayer = 1
             end
@@ -231,7 +233,7 @@ function love.draw()
 
 
     player1:render()
-    player2:render()
+    Computer:render()
 
     ball:render()
 
@@ -249,5 +251,5 @@ end
 function displayScore()
     love.graphics.setFont(scoreFont)
     love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 30, VIRTUAL_HEIGHT / 2 - 50)
-    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 2 - 50)
+    love.graphics.print(tostring(ComputerScore), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 2 - 50)
 end
