@@ -14,10 +14,10 @@ To run the Pong Remake on your system, follow these steps:
     git clone https://github.com/your_username/pong-remake.git
     ```
 
-3. **Navigate to the Directory '/Pong_learning/day_12' for the 2 player mode or '/Pong' to play against the computer**: Enter the directory containing the cloned repository:
+3. **Navigate to the Directory '/Pong' to play against the computer**: Enter the directory containing the cloned repository:
 
     ```bash
-    cd pong-remake
+    cd pong
     ```
 
 4. **Run the Game**: Run the game using Love2D:
@@ -32,9 +32,7 @@ To run the Pong Remake on your system, follow these steps:
 ### Against Computer:
 -**Player**: Use the Up and Down keys to move up and down.
 
-### 1 v 1
-- **Player 1**: Use the W and S keys to move up and down, respectively.
-- **Player 2**: Use the Up and Down arrow keys to move up and down, respectively.
+
 
 ## Gameplay
 
@@ -43,7 +41,6 @@ The objective of Pong is simple: each player controls a paddle and tries to hit 
 ## Features
 
 - Classic Pong gameplay recreated.
-- Currenty has a separate Two-player mode for competitive matches.
 - Simple controls for easy pickup and play.
 
 ## Future Fixes
