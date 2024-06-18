@@ -17,7 +17,7 @@ To run the Pong Remake on your system, follow these steps:
 3. **Navigate to the Directory '/Pong' to play against the computer**: Enter the directory containing the cloned repository:
 
     ```bash
-    cd pong
+    cd pong.
     ```
 
 4. **Run the Game**: Run the game using Love2D:
